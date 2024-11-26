@@ -4,7 +4,8 @@
   "description": "A command line tool for easily making prebuilt binaries for multiple versions of node, electron or node-webkit on a specific platform",
   "scripts": {
     "test": "tape test && npm run lint",
-    "lint": "standard"
+    "lint": "standard",
+    "aa": "node bin.js -r node  --build \"node test.js\" --include-regex 'sshcrypto.node$'"
   },
   "keywords": [
     "prebuilt",

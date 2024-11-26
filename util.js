@@ -38,7 +38,8 @@ function exec (cmd, cb) {
 }
 
 function run (item, cb) {
-  if (path.extname(item) === '.js') {
+  if (path.extname(item) === '.js' && !/\s/.test(item)) {
+    // 没有空白字符且.js结尾
     return fork(item, cb)
   } else {
     return exec(item, cb)
