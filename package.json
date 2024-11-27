@@ -8,6 +8,9 @@
     "aa": "node bin.js -r node  --build \"node test.js\" --include-regex 'sshcrypto.node$'"
   },
   "keywords": [
+    "预构建",
+    "自定义构建脚本",
+    "custom configuration",
     "prebuilt",
     "binaries",
     "native",
