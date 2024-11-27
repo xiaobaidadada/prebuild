@@ -47,7 +47,7 @@ if (opts['upload-files-zip']) {
     (async () => {
         const allPack = [];
         for (let i = 0; i < files.length; i++) {
-            const tarPath = files[i] + '.zip';
+            const tarPath = files[i] + '.tar.gz';
             allPack.push(new Promise((resolve, reject) => {
                 pack([files[i]], tarPath, function (err) {
                     if (err) {
