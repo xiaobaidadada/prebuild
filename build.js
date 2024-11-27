@@ -13,28 +13,23 @@ function build(opts, version, cb) {
         var build = opts.backend === 'cmake-js' ? cmakebuild : gypbuild
 
         log.verbose('starting build process ' + opts.backend)
+        const cb_fun = ()=>{
+            log.verbose('executing prepack')
+            if (!opts.prepack) return collectArtifacts(release, opts, cb)
+            util.run(opts.prepack, function (err) {
+                if (err) return cb(err)
+                collectArtifacts(release, opts, cb)
+            })
+        }
         if (opts.build) {
             util.run(opts.build, function (err) {
-                if (!opts.prepack) return collectArtifacts(release, opts, cb)
-
-                log.verbose('executing prepack')
-                util.run(opts.prepack, function (err) {
-                    if (err) return cb(err)
-                    collectArtifacts(release, opts, cb)
-                })
+                cb_fun();
             })
         } else {
             build(opts, version, function (err) {
                 if (err) return cb(err)
                 log.verbose('completed building ' + opts.backend)
-
-                if (!opts.prepack) return collectArtifacts(release, opts, cb)
-
-                log.verbose('executing prepack')
-                util.run(opts.prepack, function (err) {
-                    if (err) return cb(err)
-                    collectArtifacts(release, opts, cb)
-                })
+                cb_fun();
             })
         }
     }
