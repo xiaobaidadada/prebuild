@@ -48,19 +48,17 @@ if (opts['upload-files-zip']) {
         const allPack = [];
         for (let i = 0; i < files.length; i++) {
             const tarPath = files[i] + '.zip';
-            allPack.push(() => {
-                return new Promise((resolve, reject) => {
-                    pack([files[i]], tarPath, function (err) {
-                        if (err) {
-                            reject(0);
-                            return;
-                        }
-                        buildLog('Prebuild written to ' + tarPath)
-                        files[i] = tarPath;
-                        resolve(1);
-                    })
+            allPack.push(new Promise((resolve, reject) => {
+                pack([files[i]], tarPath, function (err) {
+                    if (err) {
+                        reject(0);
+                        return;
+                    }
+                    buildLog('Prebuild written to ' + tarPath)
+                    files[i] = tarPath;
+                    resolve(1);
                 })
-            });
+            }));
         }
         await Promise.all(allPack);
         uploadFiles(files);
