@@ -2,3 +2,5 @@ test
 yarn.lock
 foo
 .github
+.idea
+test.js

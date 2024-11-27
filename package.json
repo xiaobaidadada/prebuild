@@ -1,6 +1,6 @@
 {
-  "name": "prebuild",
-  "version": "13.0.1",
+  "name": "@xiaobaidadada/prebuild",
+  "version": "13.0.1-1",
   "description": "A command line tool for easily making prebuilt binaries for multiple versions of node, electron or node-webkit on a specific platform",
   "scripts": {
     "test": "tape test && npm run lint",
@@ -52,7 +52,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/prebuild/prebuild.git"
+    "url": "https://github.com/xiaobaidadada/prebuild.git"
   },
   "author": "Mathias Buus (@mafintosh)",
   "contributors": [
