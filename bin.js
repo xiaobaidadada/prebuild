@@ -43,7 +43,7 @@ var opts = Object.assign({}, rc, {pkg: pkg, log: log, buildLog: buildLog, argv: 
 if (napi.isNapiRuntime(rc.runtime)) napi.logMissingNapiVersions(rc.target, rc.prebuild, log)
 
 if (opts['upload-files-gz']) {
-    const files = opts['upload-files-zip'].split(',');
+    const files = opts['upload-files-gz'].split(',');
     (async () => {
         const allPack = [];
         for (let i = 0; i < files.length; i++) {
