@@ -10,4 +10,4 @@
 
 2. `--upload-files` parameter: The difference between this and the `--upload-all` parameter is that this parameter allows the developer to specify the files to upload, rather than defaulting to the prebuilds directory. Multiple files should be separated by commas.
 
-3. `--upload-files-zip` parameter: This functions the same way as the `--upload-files` parameter, except that it will compress each file into a zip before uploading.
+3. `--upload-files-gz` parameter: This functions the same way as the `--upload-files` parameter, except that it will compress each file into a zip before uploading.
