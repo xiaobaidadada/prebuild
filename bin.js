@@ -51,17 +51,16 @@ if (opts['upload-files-zip']) {
             allPack.push(new Promise((resolve, reject) => {
                 pack([files[i]], tarPath, function (err) {
                     if (err) {
-                        reject(0);
+                        reject(new Error('Packing failed'));
                         return;
                     }
-                    buildLog('Prebuild written to ' + tarPath)
-                    files[i] = tarPath;
-                    resolve(1);
+                    buildLog('Prebuild written to ' + tarPath);
+                    resolve(tarPath);  // 返回生成的 tarPath
                 })
             }));
         }
-        await Promise.all(allPack);
-        uploadFiles(files);
+        const result = await Promise.all(allPack);
+        uploadFiles(result);
     })();
 } else if (opts['upload-files']) {
     const files = opts['upload-files'].split(',');
