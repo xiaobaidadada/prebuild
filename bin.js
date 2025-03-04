@@ -18,6 +18,9 @@ if (rc.version) {
     console.log(prebuildVersion)
     process.exit(0)
 }
+if(rc['--set-version'] && typeof rc['--set-version'] === 'string') {
+    pkg.version = rc['--set-version']
+}
 
 if (rc.path) process.chdir(rc.path)
 

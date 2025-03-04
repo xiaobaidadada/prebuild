@@ -2,7 +2,7 @@
 1. `--build` 参数： 添加此参数后不在执行项目下的binding.gyp进行构建，而是用开发自己的输入的js文件或者命令来构建，可用于一些需要环境变量的构建的情况。
 2. `--upload-files` 参数： 和`--upload-all`参数的区别是该参数是开发者自己指定文件，而不是默认的prebuilds目录，多个文件使用","符号分割。
 3. `--upload-files-gz` 参数： 和`--upload-files`作用一样，只不过会把文件一个个压缩成tar.gz。
-
+4. `--set-version` 参数： 用于设置特定的版本 \"\" 可以置空
 
 # Add Function:
 
