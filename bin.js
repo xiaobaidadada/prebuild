@@ -47,27 +47,31 @@ if (napi.isNapiRuntime(rc.runtime)) napi.logMissingNapiVersions(rc.target, rc.pr
 
 if (opts['upload-files-gz']) {
     const files = opts['upload-files-gz'].split(',');
-    (async () => {
-        const allPack = [];
-        for (let i = 0; i < files.length; i++) {
-            const tarPath = files[i] + '.tar.gz';
-            allPack.push(new Promise((resolve, reject) => {
-                pack([files[i]], tarPath, function (err) {
-                    if (err) {
-                        reject(new Error('Packing failed'));
-                        return;
-                    }
-                    buildLog('Prebuild written to ' + tarPath);
-                    resolve(tarPath);  // 返回生成的 tarPath
-                })
-            }));
-        }
-        const result = await Promise.all(allPack);
-        uploadFiles(result);
-    })();
+    glob(files, {nodir: true}).then((file_list)=>{
+        (async () => {
+            const allPack = [];
+            for (let i = 0; i < file_list.length; i++) {
+                const tarPath = file_list[i] + '.tar.gz';
+                allPack.push(new Promise((resolve, reject) => {
+                    pack([file_list[i]], tarPath, function (err) {
+                        if (err) {
+                            reject(new Error('Packing failed'));
+                            return;
+                        }
+                        buildLog('Prebuild written to ' + tarPath);
+                        resolve(tarPath);  // 返回生成的 tarPath
+                    })
+                }));
+            }
+            const result = await Promise.all(allPack);
+            uploadFiles(result);
+        })();
+    }, onbuilderror)
 } else if (opts['upload-files']) {
+
     const files = opts['upload-files'].split(',');
-    uploadFiles(files);
+    glob(files, {nodir: true}).then(uploadFiles, onbuilderror)
+    // uploadFiles(files);
 } else if (opts['upload-all']) {
     glob('prebuilds/**/*', {nodir: true}).then(uploadFiles, onbuilderror)
 } else {
